@@ -1,13 +1,23 @@
 //To create a new SPL Token you first have to create a Token Mint. A Token Mint is an account that holds data about a specific token
 
-export async function createTokenMint({payer, mintAuthority, freezeAuthority, decimal}) {
-    const connection = 
+import { createMint } from "@solana/spl-token";
+import { Connection, PublicKey, Signer } from "@solana/web3.js";
+
+interface CreateTokenMint {
+    connection: Connection,
+    payer: Signer,
+    mintAuthority: PublicKey,
+    freezeAuthority: PublicKey | null,
+    decimals: number
+}
+
+export async function createTokenMint({connection, payer, mintAuthority, freezeAuthority, decimals}: CreateTokenMint) {
     const tokenMint = await createMint(
         connection,
         payer,
         mintAuthority,
         freezeAuthority,
-        decimal,
+        decimals,
       );
 
 }
